@@ -1,0 +1,50 @@
+#jenkins_deploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hello
+  name: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hello
+    spec:
+      containers:
+      - image: registry.cloud.kt.com/8g9tu3w2/hello
+        imagePullPolicy: Always
+        name: flaskapp
+        ports:
+        - containerPort: 5000
+        resources: {}
+      imagePullSecrets:
+      - name: regcred
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hello
+  name: hello
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: hello
+  type: NodePort
+status:
+  loadBalancer: {}
