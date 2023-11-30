@@ -22,7 +22,7 @@ spec:
       containers:
       - image: registry.cloud.kt.com/8g9tu3w2/hello
         imagePullPolicy: Always
-        name: flaskapp
+        name: hello
         ports:
         - containerPort: 5000
         resources: {}
